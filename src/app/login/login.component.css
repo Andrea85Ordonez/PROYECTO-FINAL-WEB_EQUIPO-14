@@ -1,0 +1,74 @@
+.contenedorLogin {
+    max-width: 400px;
+    background: linear-gradient(135deg, #fffdf7, #f6e8d7);
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    text-align: center;
+}
+
+.avatar {
+    background-image: url('/assets/iconoUsuario.png');
+    background-size: cover;
+    background-position: center;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.center-content {
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f4e7d1, #e6ccb2);
+}
+
+.llenarInformacion {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.mat-icon {
+    color: rgba(102, 85, 74, 0.7); /* Beige oscuro */
+}
+
+.login-btn {
+    width: 100%;
+    background-color: #a57d52; /* Tono arena oscuro */
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login-btn:hover {
+    background-color: #8c6844; /* Tono más oscuro en hover */
+    transform: scale(1.02);
+}
+
+mat-card-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #6b4f3d; /* Marrón suave */
+}
+
+mat-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+  
+  
+  

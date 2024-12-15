@@ -1,0 +1,149 @@
+<div class="container mt-5">
+    <div>
+      <h2 class="tituloTabla">Lista de películas desde la API Local</h2>
+    </div>
+    <div class="estiloBuscador">
+      <input matInput [(ngModel)]="buscador" (input)="buscar()"
+        placeholder="🕵️‍♂️ Ingresa el título de la película" class="styled-input"/>
+    </div>
+    <div class="table-container">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th class="table-header">ID</th>
+            <th class="table-header">Título</th>
+            <th class="table-header">Fecha</th>
+            <th class="table-header">Poster</th>
+            <th class="table-header">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let movie of paginaPeliculas; let i = index">
+            <td>{{ movie.idPelicula }}</td>
+            <td>{{ movie.titulo }}</td>
+            <td>{{ movie.fecha }}</td>
+            <td><img [src]="movie.urlImagen" alt="{{ movie.Title }}" width="100" /></td>
+            <td>
+              <button mat-raised-button color="primary" (click)="abrirModal(movie)" class="action-btn">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button mat-raised-button color="accent" (click)="abrirEditModal(movie)" class="action-btn">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-raised-button color="accent" (click)="abrirEliminarModal(movie)" class="action-btn">
+                <mat-icon>delete</mat-icon>
+              </button> 
+              <button mat-raised-button color="accent" (click)="abrirAgregarModal()" class="action-btn">
+                <mat-icon>add</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination-container text-center mt-3">
+      <paginacion [length]="peliculas.length" [pageSize]="paginacionInicial"
+        [pageSizeOptions]="[5, 10, 50, 100]"(page)="onPageChange($event)"></paginacion>
+    </div>
+  </div>
+  <!--modal de detalles-->
+  <ng-template #modalDetalles>
+    <mat-card class="modal">
+      <mat-card-header>
+        <mat-card-title>{{ peliculaSeleccionada?.titulo }}</mat-card-title>
+        <mat-card-subtitle>Fecha: {{ peliculaSeleccionada?.fecha }}</mat-card-subtitle>
+        <mat-card-subtitle>Tipo: {{ peliculaSeleccionada?.Tipo }}</mat-card-subtitle>
+        <mat-card-subtitle>Descripción: {{ peliculaSeleccionada?.Descripcion }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div >
+          <img [src]="peliculaSeleccionada?.urlImagen" alt="{{ peliculaSeleccionada?.Title }}" style="height: 200px; width:165px"
+          />
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-stroked-button (click)="cerrarModal()">
+          Cerrar
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-template>
+  <!--Editar-->
+  <ng-template #modalEditar>
+    <mat-card class="modal">
+      <mat-card-title >Editar película</mat-card-title>
+      <mat-card-content>
+        <form class="formularioEditar">
+          <mat-form-field>
+            <mat-label>Título</mat-label>
+            <input matInput type="text" [(ngModel)]="editMovie.titulo" name="titulo" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Fecha</mat-label>
+            <input matInput type="text" [(ngModel)]="editMovie.fecha" name="año" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Tipo</mat-label>
+            <input matInput type="text" [(ngModel)]="editMovie.Tipo" name="tipo" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Descripción</mat-label>
+            <input matInput type="text" [(ngModel)]="editMovie.Descripcion" name="descripcion" />
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-stroked-button (click)="cerrarEditModal()">Cancelar</button>
+        <button mat-flat-button (click)="guardarCambios()">Guardar</button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-template>
+  <!-- Modal para confirmar eliminacion -->
+  <ng-template #modalConfirmarEliminacion>
+    <mat-card class="modal">
+      <mat-card-title>¿Estás seguro de que deseas eliminar esta película?</mat-card-title>
+      <mat-card-content>
+        <p>Título: <strong>{{ peliculaEliminada?.titulo }}</strong></p>
+        <p>Fecha: <strong>{{ peliculaEliminada?.fecha }}</strong></p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-stroked-button (click)="cerrarEliminarModal()">Cancelar</button>
+        <button mat-flat-button  (click)="confirmEliminacion()">Eliminar</button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-template>
+  <!-- Modal para agregar nueva película -->
+<ng-template #modalAgregar>
+  <mat-card class="modal">
+    <mat-card-title>Agregar nueva película</mat-card-title>
+    <mat-card-content>
+      <form class="formularioEditar">
+        <mat-form-field>
+          <mat-label>Título</mat-label>
+          <input matInput type="text" [(ngModel)]="nuevaPelicula.titulo" name="titulo" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Fecha</mat-label>
+          <input matInput type="text" [(ngModel)]="nuevaPelicula.fecha" name="año" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Tipo</mat-label>
+          <input matInput type="text" [(ngModel)]="nuevaPelicula.Tipo" name="tipo" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Descripción</mat-label>
+          <input matInput type="text" [(ngModel)]="nuevaPelicula.Descripcion" name="descripcion" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>URL de la imagen</mat-label>
+          <input matInput type="text" [(ngModel)]="nuevaPelicula.urlImagen" name="urlImagen" />
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button (click)="cerrarAgregarModal()">Cancelar</button>
+      <button mat-flat-button (click)="agregarPelicula()">Agregar</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-template>
+  

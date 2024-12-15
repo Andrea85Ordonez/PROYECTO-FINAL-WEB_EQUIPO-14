@@ -1,0 +1,138 @@
+<div class="container mt-5">
+  <div>
+    <h2 class="tituloTabla">Lista de usuarios desde la API Local</h2>
+  </div>
+  <div class="estiloBuscador">
+    <input matInput [(ngModel)]="buscador" (input)="buscar()"
+      placeholder="🕵️‍♂️ Ingresa el nombre del usuario" class="styled-input"/>
+  </div>
+  <div class="table-container">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th class="table-header">ID</th>
+          <th class="table-header">Nombre</th>
+          <th class="table-header">Correo</th>
+          <th class="table-header">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of paginaUsuarios; let i = index">
+          <td>{{ user.idUsuario }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <button mat-raised-button color="primary" (click)="abrirModal(user)" class="action-btn">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-raised-button color="accent" (click)="abrirEditModal(user)" class="action-btn">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-raised-button color="warn" (click)="abrirEliminarModal(user)" class="action-btn">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-raised-button color="accent" (click)="abrirAgregarModal()" class="action-btn">
+              <mat-icon>add</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination-container text-center mt-3">
+    <paginacion [length]="usuarios.length" [pageSize]="paginacionInicial"
+      [pageSizeOptions]="[5, 10, 50, 100]" (page)="onPageChange($event)"></paginacion>
+  </div>
+</div>
+<!-- modal Detalles -->
+<ng-template #modalDetalles>
+  <mat-card class="modal">
+    <mat-card-header>
+      <mat-card-title>{{ usuarioSeleccionado?.name }}</mat-card-title>
+      <mat-card-subtitle>Correo: {{ usuarioSeleccionado?.email }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-stroked-button (click)="cerrarModal()">Cerrar</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-template>
+<!-- modal Editar -->
+<ng-template #modalEditar>
+  <mat-card class="modal">
+    <mat-card-title>Editar Usuario</mat-card-title>
+    <mat-card-content>
+      <form>
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input matInput [(ngModel)]="editUser.name" name="nombre"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Correo</mat-label>
+          <input matInput [(ngModel)]="editUser.email" name="correo"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Rol</mat-label>
+          <input matInput [(ngModel)]="editUser.role" name="role"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Avatar</mat-label>
+          <input matInput [(ngModel)]="editUser.avatar" name="avatar"/>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button (click)="cerrarEditModal()">Cancelar</button>
+      <button mat-flat-button (click)="guardarCambios()">Guardar</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-template>
+
+<!-- Modal Confirmar Eliminación -->
+<ng-template #modalConfirmarEliminacion>
+  <mat-card class="modal">
+    <mat-card-title>¿Deseas eliminar este usuario?</mat-card-title>
+    <mat-card-content>
+      <p>Nombre: <strong>{{ usuarioEliminado?.name }}</strong></p>
+      <p>Correo: <strong>{{ usuarioEliminado?.email }}</strong></p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button (click)="cerrarEliminarModal()">Cancelar</button>
+      <button mat-flat-button (click)="confirmEliminacion()">Eliminar</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-template>
+
+<!-- Modal Agregar Usuario -->
+<ng-template #modalAgregar>
+  <mat-card class="modal">
+    <mat-card-title>Agregar Usuario</mat-card-title>
+    <mat-card-content>
+      <form>
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input matInput [(ngModel)]="nuevoUsuario.name" name="nombre"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Correo</mat-label>
+          <input matInput [(ngModel)]="nuevoUsuario.email" name="correo"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Rol</mat-label>
+          <input matInput [(ngModel)]="nuevoUsuario.role" name="role"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Avatar</mat-label>
+          <input matInput [(ngModel)]="nuevoUsuario.avatar" name="avatar"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Contraseña</mat-label>
+          <input matInput [(ngModel)]="nuevoUsuario.password" name="password"/>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button (click)="cerrarAgregarModal()">Cancelar</button>
+      <button mat-flat-button (click)="agregarUsuario()">Agregar</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-template>

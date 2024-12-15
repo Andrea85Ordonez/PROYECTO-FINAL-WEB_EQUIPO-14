@@ -1,0 +1,46 @@
+<mat-toolbar class="toolbar" color="primary">
+  <div class="logo-section">
+    <span class="logo">🎬 Mis Peliculas</span>
+  </div>
+  <span class="spacer"></span>
+  <nav class="navigation">
+    <button mat-button routerLink="inicio" routerLinkActive="active-link">
+      Inicio
+    </button>
+    <button mat-button routerLink="usuarios" routerLinkActive="active-link">
+      Usuarios
+    </button>
+    <button mat-button routerLink="peliculas" routerLinkActive="active-link">
+      Películas 
+    </button>
+    <button mat-button routerLink="/acerca" routerLinkActive="active-link">
+      Acerca de
+    </button>
+    <button mat-button routerLink="/contacto" routerLinkActive="active-link">
+      Contacto
+    </button>
+  </nav>
+  <div class="user-section">
+    <div class="user-info" *ngIf="user">
+      <span class="welcome-text">👋</span>
+      <span class="username">{{ user.name }}</span>
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="Menú de usuario">
+        <img [src]="user.avatar || 'assets/default-avatar.png'" alt="Foto del usuario" class="avatar" />
+      </button>
+    </div>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item routerLink="/profile">
+        <mat-icon>person</mat-icon> Perfil
+      </button>
+      <button mat-menu-item routerLink="/settings">
+        <mat-icon>settings</mat-icon> Configuración
+      </button>
+      <button mat-menu-item (click)="cerrarSesion()" routerLink="/login">
+        <mat-icon>logout</mat-icon> Cerrar sesión
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

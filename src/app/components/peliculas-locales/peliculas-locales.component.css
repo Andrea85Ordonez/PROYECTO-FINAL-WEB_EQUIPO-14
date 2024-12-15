@@ -1,0 +1,132 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .tituloTabla {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #111112;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  /* para la tabla */
+  .table-container {
+    width: 100%;
+    max-width: 1000px;
+    background-color: #fff;
+    border-radius: 10px; 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); 
+    overflow-x: auto;
+    margin-top: 30px;
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  .table-header {
+    background-color: #44311f; 
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+  }
+  .table th, .table td {
+    padding: 15px;
+    text-align: center;
+    font-size: 15px;
+    border-bottom: 2px solid #cbcbf4; 
+  }
+  .table td {
+    background-color: #fafafa;
+  }
+  /* botones para los modales */
+  .action-btn {
+    border-radius: 10px;
+    background-color: rgb(156, 123, 47); 
+    border: #ffffff; 
+    color: white; 
+  }
+  .action-btn:hover {
+    background-color: #000000; 
+    color: white; 
+    border: 1px solid #ffffff; 
+  }
+  .action-btn mat-icon {
+    font-size: 18px;
+  }
+  /* para los modales */
+  mat-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+    background-color: #fff4f4;
+    padding: 7rem;
+    max-width: 490px;
+  }
+  mat-card-header {
+    text-align: center;
+  }
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  /* para la busqueda*/
+  .estiloBuscador {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  .styled-input {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px; 
+    font-size: 16px; 
+    width: 280px; 
+    box-shadow: 0 0 8px rgba(63, 81, 181, 0.5);
+  }
+  .styled-input:focus {
+    border-color: #6a4dff; 
+    box-shadow: 0 0 8px rgba(63, 81, 181, 0.5);
+    transform: scale(1.05); 
+  }
+  /*paginacion*/
+  .pagination-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  /* para el modal de editar */
+  .modal {
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    justify-content: center;
+    align-items: center; 
+  }
+  .formularioEditar mat-form-field {
+    width: 100%;
+  }
+ 
+  .formularioEditar input:focus {
+    border-color: #3f51b5; 
+    background-color: #eae6e6;
+  }
+  button[mat-stroked-button] {
+    border: 1px solid #ff4c4c;
+    color: #ff4c4c;
+  }
+  button[mat-stroked-button]:hover {
+    background-color: #ff4c4c;
+    color: white;
+  }
+  button[mat-flat-button] {
+    border: 1px solid #4c55ff;
+    color: #4c55ff;
+  }
+  button[mat-flat-button]:hover {
+    background-color: #4c55ff;
+    color: white;
+  }
+  
+  

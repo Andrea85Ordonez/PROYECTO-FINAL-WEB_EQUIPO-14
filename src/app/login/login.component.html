@@ -1,0 +1,34 @@
+<div class="center-content">
+  <mat-card class="contenedorLogin" appearance="outlined">
+    <div class="header-content">
+      <div mat-card-avatar class="avatar"></div>
+    </div>
+    <mat-card-header>
+      <mat-card-title>Iniciar sesión</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-tab-group class="tab-group">
+        <mat-tab>
+          <br>
+          <mat-form-field class="llenarInformacion">
+            <mat-icon matPrefix>email</mat-icon>
+            <mat-label>Correo Electrónico</mat-label>
+            <input type="email" matInput placeholder="Correo Electrónico" [(ngModel)]="inicio_gmail">
+          </mat-form-field>
+          <mat-form-field class="llenarInformacion">
+            <mat-icon matPrefix>vpn_key</mat-icon>
+            <mat-label>Contraseña</mat-label>
+            <input [type]="hideContras ? 'password' : 'text'" matInput placeholder="Contraseña" [(ngModel)]="inicio_contras">
+            <mat-icon matSuffix (click)="verContrase()">
+              {{ hideContras ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
+          </mat-form-field>
+          <br>
+          <button mat-raised-button color="primary" (click)="ingresar()" class="login-btn">
+            Ingresar
+          </button>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>
